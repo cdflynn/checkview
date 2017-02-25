@@ -21,5 +21,26 @@ Note that you can specify a stroke width and color with xml attributes `checkVie
 Call `check()`:
 
 ```java
-mCheckView.check();
+    mCheckView.check();
+```
+
+
+## Install
+
+Add jitpack to your root `build.gradle`
+
+```gradle
+    allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
+```
+
+Add as a dependency
+```gradle
+	dependencies {
+	        compile 'com.github.cdflynn:checkview:v1.0'
+	}
 ```
