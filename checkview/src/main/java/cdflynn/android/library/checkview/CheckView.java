@@ -110,7 +110,7 @@ public class CheckView extends View {
         init(context, attrs);
     }
 
-    @TargetApi(21)
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public CheckView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         init(context, attrs);
@@ -138,8 +138,8 @@ public class CheckView extends View {
     private void resolveAttributes(Context c, @Nullable AttributeSet attrs) {
         if (attrs == null) {
             return;
-
         }
+        
         TypedArray a = c.getTheme().obtainStyledAttributes(attrs, R.styleable.CheckView, 0, 0);
 
         try {
@@ -243,7 +243,7 @@ public class CheckView extends View {
     }
 
     private Interpolator createCheckInterpolatorCompat() {
-        if (Build.VERSION.SDK_INT >= 21) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             return new PathInterpolator(0.755F, 0.05F, 0.855F, 0.06F);
         } else {
             return new AccelerateInterpolator();
