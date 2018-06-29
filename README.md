@@ -41,6 +41,6 @@ Add jitpack to your root `build.gradle`
 Add as a dependency
 ```gradle
 	dependencies {
-	        compile 'com.github.cdflynn:checkview:v1.0'
+	        compile 'com.github.cdflynn:checkview:v1.1'
 	}
 ```
