@@ -11,16 +11,17 @@ import android.graphics.PathMeasure;
 import android.graphics.PointF;
 import android.graphics.RectF;
 import android.os.Build;
-import android.support.annotation.ColorInt;
-import android.support.annotation.FloatRange;
-import android.support.annotation.Nullable;
-import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Interpolator;
 import android.view.animation.PathInterpolator;
+
+import androidx.annotation.ColorInt;
+import androidx.annotation.FloatRange;
+import androidx.annotation.Nullable;
+import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
 
 /**
  * Animating check mark.
@@ -139,7 +140,7 @@ public class CheckView extends View {
         if (attrs == null) {
             return;
         }
-        
+
         TypedArray a = c.getTheme().obtainStyledAttributes(attrs, R.styleable.CheckView, 0, 0);
 
         try {
@@ -169,12 +170,12 @@ public class CheckView extends View {
             mMinorContourLength = distance(mCheckStart.x, mCheckStart.y, mCheckPivot.x, mCheckPivot.y);
             mMajorContourLength = distance(mCheckPivot.x, mCheckPivot.y, mCheckEnd.x, mCheckEnd.y);
 
-            mCircleRect.left = mDrawingRect.left + mStrokeWidth /2;
-            mCircleRect.top = mDrawingRect.top + mStrokeWidth /2;
-            mCircleRect.right = mDrawingRect.right - mStrokeWidth /2;
-            mCircleRect.bottom = mDrawingRect.bottom - mStrokeWidth /2;
+            mCircleRect.left = mDrawingRect.left + mStrokeWidth / 2;
+            mCircleRect.top = mDrawingRect.top + mStrokeWidth / 2;
+            mCircleRect.right = mDrawingRect.right - mStrokeWidth / 2;
+            mCircleRect.bottom = mDrawingRect.bottom - mStrokeWidth / 2;
             mCircleStart.x = mCircleRect.right;
-            mCircleStart.y = mCircleRect.bottom /2;
+            mCircleStart.y = mCircleRect.bottom / 2;
 
             if (DEBUG && (mDrawingRect.width() != mDrawingRect.height())) {
                 Log.w(TAG, "WARNING: " + CheckView.class.getSimpleName() + " will look weird because you've given it a non-square drawing area.  " +
@@ -315,32 +316,23 @@ public class CheckView extends View {
     //endregion private methods
 
     //region animator listeners
-    private final ValueAnimator.AnimatorUpdateListener mCheckAnimatorListener = new ValueAnimator.AnimatorUpdateListener() {
-        @Override
-        public void onAnimationUpdate(ValueAnimator animation) {
-            final float fraction = animation.getAnimatedFraction();
-            setCheckPathPercentage(fraction);
-            invalidate();
-        }
+    private final ValueAnimator.AnimatorUpdateListener mCheckAnimatorListener = animation -> {
+        final float fraction = animation.getAnimatedFraction();
+        setCheckPathPercentage(fraction);
+        invalidate();
     };
 
-    private final ValueAnimator.AnimatorUpdateListener mCircleAnimatorListener = new ValueAnimator.AnimatorUpdateListener() {
-        @Override
-        public void onAnimationUpdate(ValueAnimator animation) {
-            final float fraction = animation.getAnimatedFraction();
-            setCirclePathPercentage(fraction);
-            invalidate();
-        }
+    private final ValueAnimator.AnimatorUpdateListener mCircleAnimatorListener = animation -> {
+        final float fraction = animation.getAnimatedFraction();
+        setCirclePathPercentage(fraction);
+        invalidate();
     };
 
-    private final ValueAnimator.AnimatorUpdateListener mScaleAnimatorListener = new ValueAnimator.AnimatorUpdateListener() {
-        @Override
-        public void onAnimationUpdate(ValueAnimator animation) {
-            final float value = (float) animation.getAnimatedValue();
-            CheckView.this.setScaleX(value);
-            CheckView.this.setScaleY(value);
-            invalidate();
-        }
+    private final ValueAnimator.AnimatorUpdateListener mScaleAnimatorListener = animation -> {
+        final float value = (float) animation.getAnimatedValue();
+        CheckView.this.setScaleX(value);
+        CheckView.this.setScaleY(value);
+        invalidate();
     };
     //endregion
 }
